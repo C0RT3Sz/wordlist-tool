@@ -1,5 +1,5 @@
 from core.input_processor import processar_entrada
-from core.mutation_engine import gerar_mutacoes
+from core.mutation_engine import gerar_mutacoes_completas
 from output.file_writer import salvar_arquivo
 
 def arquivo_nao_existe(caminho):
@@ -22,7 +22,7 @@ def main():
 
     lista_palavras, lista_numeros = processar_entrada(caminho_arquivo)
 
-    wordlist_final = gerar_mutacoes(lista_palavras, lista_numeros)
+    wordlist_final = gerar_mutacoes_completas(lista_palavras, lista_numeros)
 
     salvar_arquivo(wordlist_final, caminho_saida)
 
