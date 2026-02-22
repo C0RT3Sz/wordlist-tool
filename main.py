@@ -1,16 +1,32 @@
-# This is a sample Python script.
+from core.input_processor import processar_entrada
+from core.mutation_engine import gerar_mutacoes
+from output.file_writer import salvar_arquivo
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def arquivo_nao_existe(caminho):
+    import os
+    return not os.path.exists(caminho)
 
+def main():
+    print(" === Wordlist Tool Iniciada === ")
+    caminho_arquivo = input("Passe o arquivo do alvo: ")
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+8 to toggle the breakpoint.
+    if not caminho_arquivo:
+        print("Nenhum caminho informado")
+        return
 
+    if arquivo_nao_existe(caminho_arquivo):
+        print("Arquivo não encontrado")
+        return
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+    caminho_saida = "resultado.txt"
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    lista_palavras, lista_numeros = processar_entrada(caminho_arquivo)
+
+    wordlist_final = gerar_mutacoes(lista_palavras, lista_numeros)
+
+    salvar_arquivo(wordlist_final, caminho_saida)
+
+    print("Wordlist criada com sucesso")
+
+if __name__ == "__main__":
+    main()
